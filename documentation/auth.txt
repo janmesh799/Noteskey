@@ -1,0 +1,180 @@
+To manage authentication using session storage and cookies, you can use libraries like `express-session` and `cookie-parser` in an Express.js application. Here's a step-by-step guide:
+
+### 1. Install Dependencies
+
+First, you need to install the required packages:
+
+```bash
+npm install express express-session cookie-parser
+```
+
+### 2. Set Up Express Application with Session and Cookie Handling
+
+Create a basic Express application and configure it to use `express-session` and `cookie-parser`.
+
+```javascript
+const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use(session({
+  secret: 'your_secret_key', // Replace with your secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true if using https
+}));
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+### 3. User Authentication
+
+Implement user authentication, storing user sessions and setting cookies.
+
+```javascript
+const users = []; // This should be replaced with a proper database
+
+// User registration
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
+  if (users.find(user => user.username === username)) {
+    return res.status(400).send('User already exists');
+  }
+  users.push({ username, password }); // Passwords should be hashed in a real application
+  res.send('User registered successfully');
+});
+
+// User login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(user => user.username === username && user.password === password);
+  if (!user) {
+    return res.status(401).send('Invalid credentials');
+  }
+  req.session.user = { username }; // Store user in session
+  res.cookie('username', username, { httpOnly: true }); // Set a cookie
+  res.send('Logged in successfully');
+});
+
+// Protected route
+app.get('/profile', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).send('Unauthorized');
+  }
+  res.send(`Welcome, ${req.session.user.username}`);
+});
+
+// User logout
+app.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send('Could not log out');
+    }
+    res.clearCookie('username');
+    res.send('Logged out successfully');
+  });
+});
+```
+
+### 4. Protecting Routes
+
+To protect routes, you can create a middleware function that checks if the user is authenticated.
+
+```javascript
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.status(401).send('Unauthorized');
+  }
+}
+
+// Use the middleware to protect routes
+app.get('/profile', isAuthenticated, (req, res) => {
+  res.send(`Welcome, ${req.session.user.username}`);
+});
+```
+
+### Complete Example
+
+Here's a complete example combining all the steps:
+
+```javascript
+const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use(session({
+  secret: 'your_secret_key', // Replace with your secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true if using https
+}));
+
+const users = []; // This should be replaced with a proper database
+
+// User registration
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
+  if (users.find(user => user.username === username)) {
+    return res.status(400).send('User already exists');
+  }
+  users.push({ username, password }); // Passwords should be hashed in a real application
+  res.send('User registered successfully');
+});
+
+// User login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(user => user.username === username && user.password === password);
+  if (!user) {
+    return res.status(401).send('Invalid credentials');
+  }
+  req.session.user = { username }; // Store user in session
+  res.cookie('username', username, { httpOnly: true }); // Set a cookie
+  res.send('Logged in successfully');
+});
+
+// Middleware to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.status(401).send('Unauthorized');
+  }
+}
+
+// Protected route
+app.get('/profile', isAuthenticated, (req, res) => {
+  res.send(`Welcome, ${req.session.user.username}`);
+});
+
+// User logout
+app.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).send('Could not log out');
+    }
+    res.clearCookie('username');
+    res.send('Logged out successfully');
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+In this example, the user registration, login, session management, and protected routes are set up. You can enhance this further by adding proper password hashing, using a database for persistent storage, and configuring secure cookies for production environments.

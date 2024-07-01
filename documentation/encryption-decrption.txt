@@ -1,0 +1,72 @@
+const mongoose = require('mongoose');
+const crypto = require('crypto');
+
+mongoose.connect('mongodb://localhost:27017/encryption-demo', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+const userSchema = new mongoose.Schema({
+  username: String,
+  encryptionKey: String
+});
+
+const User = mongoose.model('User', userSchema);
+
+async function createUser(username) {
+  const key = crypto.randomBytes(32).toString('hex');
+  const user = new User({ username, encryptionKey: key });
+  await user.save();
+  return user;
+}
+
+const messageSchema = new mongoose.Schema({
+  userId: mongoose.Schema.Types.ObjectId,
+  iv: String,
+  encryptedData: String
+});
+
+const Message = mongoose.model('Message', messageSchema);
+
+function encryptMessage(message, encryptionKey) {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(encryptionKey, 'hex'), iv);
+  let encrypted = cipher.update(message, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return { iv: iv.toString('hex'), encryptedData: encrypted };
+}
+
+async function storeMessage(userId, message) {
+  const user = await User.findById(userId);
+  const encrypted = encryptMessage(message, user.encryptionKey);
+  const newMessage = new Message({ userId, iv: encrypted.iv, encryptedData: encrypted.encryptedData });
+  await newMessage.save();
+  return newMessage;
+}
+
+function decryptMessage(encrypted, encryptionKey) {
+  const iv = Buffer.from(encrypted.iv, 'hex');
+  const encryptedText = Buffer.from(encrypted.encryptedData, 'hex');
+  const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(encryptionKey, 'hex'), iv);
+  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+
+async function retrieveMessages(userId) {
+  const user = await User.findById(userId);
+  const messages = await Message.find({ userId });
+  return messages.map(msg => decryptMessage({ iv: msg.iv, encryptedData: msg.encryptedData }, user.encryptionKey));
+}
+
+// Example usage
+(async () => {
+  const user = await createUser('john_doe');
+  console.log('User created:', user);
+
+  const storedMessage = await storeMessage(user._id, 'Hello, this is a secret message!');
+  console.log('Stored message:', storedMessage);
+
+  const messages = await retrieveMessages(user._id);
+  console.log('Retrieved messages:', messages);
+})();
