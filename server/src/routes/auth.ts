@@ -2,7 +2,7 @@ import express, { Express, Router } from "express";
 import { check } from "express-validator";
 import Register from "../Controllers/auth/Register";
 import Login from "../Controllers/auth/Login";
-import Logout from "../Controllers/Logout";
+import Logout from "../Controllers/auth/Logout";
 
 const app: Express = express();
 const router: Router = express.Router();

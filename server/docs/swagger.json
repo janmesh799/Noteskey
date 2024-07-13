@@ -130,6 +130,315 @@
           }
         }
       }
+    },
+    "/api/notes/": {
+      "post": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "API for creating a new Note",
+        "description": "User can create a new Note using title, content, attachments, priority, deadline, status",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Note data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "title of the note"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "<p>Hello world</p>"
+                },
+                "priority": {
+                  "type": "string",
+                  "example": "low"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "API for fetching the notes",
+        "description": "User can fetch the notes filtered with priority, status or deadline",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Filtering data",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "priority": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "example": {
+                      "type": "string",
+                      "example": "low"
+                    }
+                  }
+                },
+                "deadline": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "example": {
+                      "type": "string",
+                      "example": "2024-07-01T10:56:25.322+00:00"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "example": {
+                      "type": "string",
+                      "example": "not_started"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "API for updating a note",
+        "description": "User can edit a note using the related data",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Note data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "title of the note"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "<p>Hello world</p>"
+                },
+                "priority": {
+                  "type": "string",
+                  "example": "low"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/notes/{id}": {
+      "get": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "API for fetching a note by ID",
+        "description": "User can fetch a note by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Note ID",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "60c72b2f9b1e8e2f78e4a3b1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/notes/deleteNotes": {
+      "post": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "API for deleting the notes",
+        "description": "User can bulk delete the notes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Notes data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notesData": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "array"
+                    },
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "example": {
+                          "type": "string",
+                          "example": "60c72b2f9b1e8e2f78e4a3b1"
+                        }
+                      }
+                    }
+                  }
+                },
+                "allNotes": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "example": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/notes/shareNote": {
+      "post": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "API for sharing the note",
+        "description": "User can share a note with another user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Sharing data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "example": {
+                      "type": "string",
+                      "example": "60c72b2f9b1e8e2f78e4a3b1"
+                    }
+                  }
+                },
+                "toUserEmail": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "example": {
+                      "type": "string",
+                      "example": "user@example.com"
+                    }
+                  }
+                },
+                "noteId": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "example": {
+                      "type": "string",
+                      "example": "60c72b2f9b1e8e2f78e4a3b1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   }
 }

@@ -1,13 +1,14 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IUser extends Document {
+  id: mongoose.Schema.Types.ObjectId;
   name: string;
   email: string;
   password: string;
   verified: boolean;
   createdOn: Date;
   modifiedOn: Date;
-  encryptionKey:string;
+  encryptionKey: string;
 }
 
 const UserSchema: Schema = new Schema(
@@ -16,7 +17,7 @@ const UserSchema: Schema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     verified: { type: Boolean, required: true, default: true }, // will make verified false later when create that functionality
-    encryptionKey:{type:String,required:true,default:''}
+    encryptionKey: { type: String, required: true, default: "" },
   },
   {
     timestamps: { createdAt: "createdOn", updatedAt: "modifiedOn" },

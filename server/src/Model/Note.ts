@@ -1,26 +1,39 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { IUser } from "./User";
 
 // Define the Note interface
 export interface INote extends Document {
-  userId: mongoose.Schema.Types.ObjectId | IUser;
+  owner: mongoose.Schema.Types.ObjectId;
   title: string;
   content: string;
-  attachments: {
+  attachments?: {
     type: string;
     url: string;
   }[];
-  priority: string;
+  priority: Priority;
   deadline: Date;
-  status: string;
-  sharedWith: (mongoose.Schema.Types.ObjectId | IUser)[];
-  encryptionKey: string;
+  status: Status;
+  sharedWith: mongoose.Schema.Types.ObjectId[];
+  encryptionKey?: string;
   createdOn: Date;
   modifiedOn: Date;
 }
+
+// Define enums for priority and status
+export enum Priority {
+  LOW = "low",
+  MEDIUM = "medium",
+  HIGH = "high",
+}
+
+export enum Status {
+  NOT_STARTED = "not_started",
+  IN_PROGRESS = "in_progress",
+  COMPLETED = "completed",
+}
+
 const NoteSchema: Schema = new Schema(
   {
-    userId: {
+    owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -33,14 +46,26 @@ const NoteSchema: Schema = new Schema(
         url: { type: String },
       },
     ],
-    priority: { type: String, required: true },
-    deadline: { type: Date, required: true },
-    status: { type: String, required: true },
-    sharedWith: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    encryptionKey: { type: String, required: true },
+    priority: {
+      type: String,
+      enum: Object.values(Priority),
+      default: Priority.LOW,
+    },
+    deadline: { type: Date, default: new Date() },
+    status: {
+      type: String,
+      enum: Object.values(Status),
+      default: Status.NOT_STARTED,
+    },
+    sharedWith: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+      default:[]
+    },
+    encryptionKey: { type: String, required: true, default:'123' },
   },
   {
     timestamps: { createdAt: "createdOn", updatedAt: "modifiedOn" },
   }
 );
+
 export default mongoose.model<INote>("Note", NoteSchema);

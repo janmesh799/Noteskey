@@ -44,6 +44,7 @@ const Login = async (req: Request, res: Response) => {
     };
     const token = jwt.sign(jsonPayload, JsonSecretKey);
     (req.session as any).user = { userId: exists._id };
+    console.log("login req session = ", req.session);
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); //expire in 24hrs
     res.cookie("userId", exists._id, { httpOnly: true, expires });
     return res
