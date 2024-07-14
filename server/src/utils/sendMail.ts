@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 export type mailData = {
   to: string;
@@ -8,7 +9,7 @@ export type mailData = {
 
 const sendMail = (data: mailData) => {
   try {
-    console.log(process.env)
+    console.log(process.env);
     const senderEmail: string | undefined = process.env.SENDER_EMAIL;
     const senderPass: string | undefined = process.env.SENDER_PASS;
     if (!senderEmail || !senderPass) {
@@ -36,7 +37,7 @@ const sendMail = (data: mailData) => {
     };
 
     // Send the email
-    mailTransporter.sendMail(mailDetails, function (err, info) {
+    mailTransporter.sendMail(mailDetails, function (err: Error | null, info:SMTPTransport.SentMessageInfo) {
       if (err) {
         if (err instanceof Error) {
           console.error("Error occurred while sending email:", err.message);
