@@ -381,58 +381,6 @@
         ],
         "summary": "API for sharing the note",
         "description": "User can share a note with another user",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Sharing data",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "example": {
-                      "type": "string",
-                      "example": "60c72b2f9b1e8e2f78e4a3b1"
-                    }
-                  }
-                },
-                "toUserEmail": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "example": {
-                      "type": "string",
-                      "example": "user@example.com"
-                    }
-                  }
-                },
-                "noteId": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "example": "string"
-                    },
-                    "example": {
-                      "type": "string",
-                      "example": "60c72b2f9b1e8e2f78e4a3b1"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "default": {
             "description": ""

@@ -131,22 +131,13 @@ router.post(
   #swagger.description = 'User can share a note with another user'
   #swagger.summary = 'API for sharing the note'
   #swagger.parameters['body'] = {
-    in: 'body',
+    in: 'heades',
     description: 'Sharing data',
     required: true,
     schema: {
-      userId: {
-        type: 'string',
-        example: '60c72b2f9b1e8e2f78e4a3b1'
-      },
-      toUserEmail: {
-        type: 'string',
-        example: 'user@example.com'
-      },
-      noteId: {
-        type: 'string',
-        example: '60c72b2f9b1e8e2f78e4a3b1'
-      }
+      toUserEmail:  example: 'user@example.com'
+      noteId:'60c72b2f9b1e8e2f78e4a3b1'
+      
     }
   }
   */
