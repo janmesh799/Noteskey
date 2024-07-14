@@ -2,7 +2,7 @@
   "name": "plannerpulse-backend",
   "version": "1.0.0",
   "description": "this is the backend for plannerpulse application",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/src/index.js",
