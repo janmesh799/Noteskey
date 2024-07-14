@@ -10,7 +10,7 @@
     "routes": [
         {
             "src": "dist/src/index.js",
-            "dest": "dist/src/index.js"
+            "dest": "dist/src/routes/*.js"
         }
     ]
 }
