@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { ITag } from "./Tag";
 
 // Define the Note interface
 export interface INote extends Document {
@@ -16,6 +17,8 @@ export interface INote extends Document {
   encryptionKey?: string;
   createdOn: Date;
   modifiedOn: Date;
+  tag?: ITag;
+  color?: string;
 }
 
 // Define enums for priority and status
@@ -59,9 +62,13 @@ const NoteSchema: Schema = new Schema(
     },
     sharedWith: {
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-      default:[]
+      default: [],
     },
-    encryptionKey: { type: String, required: true, default:'123' },
+    encryptionKey: { type: String, required: true, default: "123" },
+    tag: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tag",
+    },
   },
   {
     timestamps: { createdAt: "createdOn", updatedAt: "modifiedOn" },

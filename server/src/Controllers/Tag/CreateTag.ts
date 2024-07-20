@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
-import Note, { INote } from "../../Model/Note";
 import User, { IUser } from "../../Model/User";
-import { encryptData } from "../../utils/encryption";
+import Tag, { ITag } from "../../Model/Tag";
 
-const createNote = async (req: Request, res: Response) => {
+const createTag = async (req: Request, res: Response) => {
   let errorCode: number | null = null;
   try {
     const userId: string =
@@ -15,21 +14,36 @@ const createNote = async (req: Request, res: Response) => {
       throw new Error("User not valid");
     }
 
-    const body: Partial<INote> = req.body;
-    const note = new Note({
+    let body: Partial<ITag> = req.body;
+    if (body.color) body.color = body.color.trim().toLowerCase();
+    if (body.title) body.title = body.title.trim().toLowerCase();
+
+    const existingTag: ITag | null = await Tag.findOne({
+      owner: userId,
+      $or: [{ title: body.title }, { color: body.color }],
+    });
+
+    if (existingTag) {
+      errorCode = 409;
+      if (body.color === existingTag.color) {
+        throw new Error("tag with same color already exists");
+      }
+      if (body.title === existingTag.title) {
+        throw new Error("tag with same title already exists");
+      }
+    }
+
+    const tag = new Tag({
       ...body,
       owner: user._id,
     });
-    const content = note.content;
-    note.content = encryptData(note.content);
-    note.title = encryptData(note.title);
-    note.sharedWith.push(user.id);
-    await note.save();
+
+    await tag.save();
 
     return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Note created successfully",
-      data: note,
+      data: tag,
     });
   } catch (err: any) {
     console.log(err);
@@ -43,4 +57,4 @@ const createNote = async (req: Request, res: Response) => {
   }
 };
 
-export default createNote;
+export default createTag;

@@ -5,6 +5,7 @@ import editNote from "../Controllers/Notes/editNote";
 import isAuthenticated from "../Middleware/isAuthenticated";
 import deleteNotes from "../Controllers/Notes/deleteNotes";
 import getNoteById from "../Controllers/Notes/getNoteById";
+import getNotesByTag from "../Controllers/Notes/getNotesByTag";
 import shareNote from "../Controllers/Notes/shareNote";
 
 const app: Express = express();
@@ -34,7 +35,7 @@ router.post(
 );
 
 router.get(
-  "/",
+  "/tag",
   /*
   #swagger.tags = ['Notes']
   #swagger.description = 'User can fetch the notes filtered with priority, status or deadline'
@@ -51,7 +52,7 @@ router.get(
   }
   */
   isAuthenticated,
-  getNotes
+  getNotesByTag
 );
 
 router.get(
@@ -72,6 +73,27 @@ router.get(
   */
   isAuthenticated,
   getNoteById
+);
+
+router.get(
+  "/",
+  /*
+  #swagger.tags = ['Notes']
+  #swagger.description = 'User can fetch the notes filtered with priority, status or deadline'
+  #swagger.summary = 'API for fetching the notes'
+  #swagger.parameters['query'] = {
+    in: 'query',
+    description: 'Filtering data',
+    required: false,
+    schema: {
+      priority: { type: 'string', example: 'low' },
+      deadline: { type: 'string', example: '2024-07-01T10:56:25.322+00:00' },
+      status: { type: 'string', example: 'not_started' }
+    }
+  }
+  */
+  isAuthenticated,
+  getNotes
 );
 
 router.put(
@@ -131,7 +153,7 @@ router.post(
   #swagger.description = 'User can share a note with another user'
   #swagger.summary = 'API for sharing the note'
   #swagger.parameters['body'] = {
-    in: 'heades',
+    in: 'header',
     description: 'Sharing data',
     required: true,
     schema: {

@@ -1,9 +1,27 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/store"; // Adjust the import based on your store location
+import {
+  increment,
+  decrement,
+  incrementByAmount,
+} from "@/lib/slices/authSlice"; // Adjust the import based on your slice location
+
+const Home = () => {
+  const dispatch = useAppDispatch();
+  const count = useAppSelector((state) => state.auth  .value);
+
   return (
-    <main>
-      <h1 className="text-center text-7xl"> Planner Pulse</h1>
-    </main>
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+      <button onClick={() => dispatch(incrementByAmount(5))}>
+        Increment by 5
+      </button>
+    </div>
   );
-}
+};
+
+export default Home;

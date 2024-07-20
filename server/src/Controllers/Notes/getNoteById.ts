@@ -4,6 +4,8 @@ import Note, { INote } from "../../Model/Note";
 import User, { IUser } from "../../Model/User";
 
 import mongoose from "mongoose";
+import Tag, { ITag } from "../../Model/Tag";
+import { decryptData } from "../../utils/encryption";
 
 const getNoteById = async (req: Request, res: Response) => {
   let errorCode: number | null = null;
@@ -22,15 +24,21 @@ const getNoteById = async (req: Request, res: Response) => {
     console.log(temp);
     console.log(userId);
 
-    const note: INote[] | null = await Note.find({
+    const note: INote | null = await Note.findOne({
       sharedWith: { $in: [new mongoose.Types.ObjectId(userId)] },
+      _id: noteId,
     });
-    console.log(note);
 
     if (!note) {
       errorCode = 404;
       throw new Error("Note not found");
     }
+    const tag: ITag | null = await Tag.findById(note?.tag).select(["-owner"]);
+    if (tag) {
+      note.tag = tag;
+    }
+    note.title = decryptData(note.title);
+    note.content = decryptData(note.content);
 
     return res.status(StatusCodes.OK).json({
       success: true,

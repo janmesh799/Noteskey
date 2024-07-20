@@ -1,35 +1,27 @@
 import { Request, Response } from "express";
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
-import Note, { INote } from "../../Model/Note";
 import User, { IUser } from "../../Model/User";
-import { encryptData } from "../../utils/encryption";
+import Tag, { ITag } from "../../Model/Tag";
 
-const createNote = async (req: Request, res: Response) => {
+const getAllTags = async (req: Request, res: Response) => {
   let errorCode: number | null = null;
   try {
     const userId: string =
       typeof req.headers.userId === "string" ? req.headers.userId : "";
     const user: IUser | null = await User.findById(userId);
+
     if (!user) {
       errorCode = 403;
       throw new Error("User not valid");
     }
-
-    const body: Partial<INote> = req.body;
-    const note = new Note({
-      ...body,
-      owner: user._id,
-    });
-    const content = note.content;
-    note.content = encryptData(note.content);
-    note.title = encryptData(note.title);
-    note.sharedWith.push(user.id);
-    await note.save();
-
-    return res.status(StatusCodes.CREATED).json({
+    const tags: ITag[] | null = await Tag.find({ owner: userId });
+    if (!tags) {
+      errorCode = 404;
+      throw new Error("Tag not found");
+    }
+    return res.status(StatusCodes.OK).json({
       success: true,
-      message: "Note created successfully",
-      data: note,
+      tags,
     });
   } catch (err: any) {
     console.log(err);
@@ -43,4 +35,4 @@ const createNote = async (req: Request, res: Response) => {
   }
 };
 
-export default createNote;
+export default getAllTags;
