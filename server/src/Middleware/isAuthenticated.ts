@@ -16,6 +16,7 @@ async function isAuthenticated(
       throw new Error("access denied");
     } else {
       req.headers.userId = userId;
+      req.headers.validUser = 'true';
       next();
     }
   } catch (err: any) {

@@ -3,6 +3,8 @@ import { check } from "express-validator";
 import Register from "../Controllers/auth/Register";
 import Login from "../Controllers/auth/Login";
 import Logout from "../Controllers/auth/Logout";
+import ValidateUser from "../Controllers/auth//ValidateUser"
+import isAuthenticated from "../Middleware/isAuthenticated";
 
 const app: Express = express();
 const router: Router = express.Router();
@@ -75,6 +77,17 @@ router.post(
   */
   "/logout",
   Logout
+);
+router.get(
+  /*
+   #swagger.tags = ['Authentication']
+  #swagger.description = 'User will be validated'
+  #swagger.summary = 'Validation API'
+ 
+  */
+  "/validate",
+  isAuthenticated,
+  ValidateUser
 );
 
 export default router;

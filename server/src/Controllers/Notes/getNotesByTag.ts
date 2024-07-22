@@ -24,7 +24,6 @@ const getNotesByTag = async (req: Request, res: Response) => {
       throw new Error("tag not found");
     }
 
-    // Log the generated filter for debugging
     // Fetching notes based on the filter
     let notes: INote[] = await Note.find({ tag: tag._id });
     let updatedNotes = await Promise.all(
