@@ -17,19 +17,14 @@
 }
 
 body {
-  background: rgb(2, 0, 36);
+  color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 0.75) 0%,
-    rgba(9, 9, 121, 0.75) 35%,
-    rgba(0, 212, 255, 0.75) 100%
-  );
-  color: white;
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
-a{
-  color: white;
-}
-
 
 @layer utilities {
   .text-balance {

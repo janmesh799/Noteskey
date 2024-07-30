@@ -1,27 +1,28 @@
-"use client";
+// pages/index.tsx
+import "../../styles/globals.css"
+import CallToAction from '@/components/LandingPage/CallToAction'
+import Features from '@/components/LandingPage/Features'
+import Footer from '@/components/LandingPage/Footer'
+import Header from '@/components/LandingPage/Header'
+import Hero from '@/components/LandingPage/Hero'
+import Head from 'next/head'
 
-import React from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/store"; // Adjust the import based on your store location
-import {
-  increment,
-  decrement,
-  incrementByAmount,
-} from "@/lib/slices/authSlice"; // Adjust the import based on your slice location
-
-const Home = () => {
-  const dispatch = useAppDispatch();
-  const count = useAppSelector((state) => state.auth  .value);
-
+export default function Home() {
   return (
-    <div>
-      <h1>Counter: {count}</h1>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-      <button onClick={() => dispatch(incrementByAmount(5))}>
-        Increment by 5
-      </button>
-    </div>
-  );
-};
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
+      <Head>
+        <title>PlannerPulse - Smart Note-Taking App</title>
+        <meta name="description" content="Create, share, and organize your notes with ease using PlannerPulse" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-export default Home;
+      <Header />
+      <main>
+        <Hero />
+        <Features />
+        <CallToAction />
+      </main>
+      <Footer />
+    </div>
+  )
+}
