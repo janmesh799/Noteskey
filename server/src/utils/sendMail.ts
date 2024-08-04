@@ -9,7 +9,6 @@ export type mailData = {
 
 const sendMail = (data: mailData) => {
   try {
-    console.log(process.env);
     const senderEmail: string | undefined = process.env.SENDER_EMAIL;
     const senderPass: string | undefined = process.env.SENDER_PASS;
     if (!senderEmail || !senderPass) {

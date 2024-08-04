@@ -20,9 +20,6 @@ const getNoteById = async (req: Request, res: Response) => {
 
     const noteId: string = req.params.id;
 
-    const temp: INote | null = await Note.findOne({ _id: noteId });
-    console.log(temp);
-    console.log(userId);
 
     const note: INote | null = await Note.findOne({
       sharedWith: { $in: [new mongoose.Types.ObjectId(userId)] },

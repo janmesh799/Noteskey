@@ -20,7 +20,6 @@ const createNote = async (req: Request, res: Response) => {
       ...body,
       owner: user._id,
     });
-    const content = note.content;
     note.content = encryptData(note.content);
     note.title = encryptData(note.title);
     note.sharedWith.push(user.id);

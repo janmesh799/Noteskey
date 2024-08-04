@@ -7,6 +7,8 @@ import deleteNotes from "../Controllers/Notes/deleteNotes";
 import getNoteById from "../Controllers/Notes/getNoteById";
 import getNotesByTag from "../Controllers/Notes/getNotesByTag";
 import shareNote from "../Controllers/Notes/shareNote";
+import markFavorite from "../Controllers/Notes/markFavorite";
+import getFavorites from "../Controllers/Notes/getFavorites";
 
 const app: Express = express();
 const router: Router = express.Router();
@@ -32,6 +34,17 @@ router.post(
   */
   isAuthenticated,
   createNote
+);
+
+router.get(
+  "/getFavorites",
+  /*
+  #swagger.tags = ['Notes']
+  #swagger.description = 'User can retrieve the favorite notes'
+  #swagger.summary = 'API for getting favorite notes'
+  */
+  isAuthenticated,
+  getFavorites
 );
 
 router.get(
@@ -165,6 +178,27 @@ router.post(
   */
   isAuthenticated,
   shareNote
+);
+
+router.post(
+  "/markFavorite",
+  /*
+  #swagger.tags = ['Notes']
+  #swagger.description = 'User can mark/remove a note to/from favorites'
+  #swagger.summary = 'API for marking/demarking the notes favorite'
+  #swagger.parameters['body'] = {
+    in: 'header',
+    description: 'Favorite data',
+    required: true,
+    schema: {
+      noteId:'60c72b2f9b1e8e2f78e4a3b1',
+      mark:true
+      
+    }
+  }
+  */
+  isAuthenticated,
+  markFavorite
 );
 
 export default router;

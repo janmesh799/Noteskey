@@ -1,6 +1,7 @@
 import { IUser } from "../Model/User";
 import { INote } from "../Model/Note";
 import sendMail from "./sendMail";
+import { decryptData } from "./encryption";
 
 const generateSharedNoteEmail = (
   fromUser: IUser,
@@ -9,7 +10,11 @@ const generateSharedNoteEmail = (
   frontendUrl: string
 ) => {
   try {
-    let emailSubject = `${fromUser.name} shared a note with you with the title '${sharedNote.title}'.`;
+    let emailSubject = `${
+      fromUser.name
+    } shared a note with you with the title '${decryptData(
+      sharedNote.title
+    )}'.`;
 
     let noteLink = `${frontendUrl}/notes/${sharedNote.id}`;
 
@@ -80,8 +85,10 @@ const generateSharedNoteEmail = (
                   <h1>Note Shared with You</h1>
               </div>
               <div class="email-body">
-                  <p><strong>${fromUser.name}</strong> has shared a note with you with the title:</p>
-                  <p><strong>${sharedNote.title}</strong></p>
+                  <p><strong>${
+                    fromUser.name
+                  }</strong> has shared a note with you with the title:</p>
+                  <p><strong>${decryptData(sharedNote.title)}</strong></p>
                   <p>Have a look by clicking the button below or the link below:</p>
                   <a href="${noteLink}" class="button">View Note</a>
                   <p><a href="${noteLink}">${noteLink}</a></p>

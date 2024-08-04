@@ -4,7 +4,8 @@ import Note, { INote } from "../../Model/Note";
 import User, { IUser } from "../../Model/User";
 import generateSharedNoteEmail from "../../utils/generateSharedNoteEmail";
 import mongoose from "mongoose"; // Import mongoose to validate ObjectId
-import { listenerCount } from "stream";
+import { createNotification } from "../../utils/notification";
+import { decryptData } from "../../utils/encryption";
 
 const shareNote = async (req: Request, res: Response) => {
   let errorCode: number | null = null;
@@ -16,7 +17,7 @@ const shareNote = async (req: Request, res: Response) => {
       req.body;
 
     if (!origin) {
-      origin = "http://localhost:janmesh"
+      origin = "http://localhost:janmesh";
       // throw new Error("origin not defined");
     }
 
@@ -28,7 +29,9 @@ const shareNote = async (req: Request, res: Response) => {
       throw new Error("User not valid");
     }
 
-    const toUser: IUser | null = await User.findOne({ email: toUserEmail });
+    const toUser: IUser | null = await User.findOne({
+      email: toUserEmail.toLowerCase().trim(),
+    });
     if (!toUser) {
       errorCode = 403;
       throw new Error("Shared user is not valid");
@@ -54,6 +57,13 @@ const shareNote = async (req: Request, res: Response) => {
 
     note.sharedWith.push(toUser.id);
     await note.save().then((note) => {
+      createNotification(
+        toUser,
+        `${user.name} shared a note with you `,
+        `${user.name} shared a note with title '${decryptData(
+          note.title
+        )}' with you`
+      );
       generateSharedNoteEmail(user, toUser, note, origin);
     });
 
