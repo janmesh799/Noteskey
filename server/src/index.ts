@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import cors from 'cors'
 const morgan = require("morgan");
 import dotenv from "dotenv";
 const session = require("express-session");
@@ -20,6 +21,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("combined"));
+app.use(cors());
 connectDB();
 
 app.use(
