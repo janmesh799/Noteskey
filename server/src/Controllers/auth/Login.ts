@@ -42,19 +42,19 @@ const Login = async (req: Request, res: Response) => {
     const jsonPayload = {
       id: exists._id,
     };
-    const token = jwt.sign(jsonPayload, JsonSecretKey);
+    const token = jwt.sign(jsonPayload, JsonSecretKey, {
+      expiresIn: "1d",
+    });
     (req.session as any).user = { userId: exists._id };
     console.log("login req session = ", req.session);
     const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); //expire in 24hrs
     res.cookie("userId", exists._id, { httpOnly: true, expires, secure: true });
-    return res
-      .status(200)
-      .json({
-        success: true,
-        token: token,
-        message: "Login Successful",
-        userId: exists._id,
-      });
+    return res.status(200).json({
+      success: true,
+      token: token,
+      message: "Login Successful",
+      userId: exists.id,
+    });
   } catch (err: any) {
     console.log(err);
     return res
