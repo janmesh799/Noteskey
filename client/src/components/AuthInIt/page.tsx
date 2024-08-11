@@ -9,7 +9,7 @@ const AuthInIt = () => {
   useEffect(() => {
     console.log('dispatching validate user')
     dispatch(validateUser());
-  }, []);
+  }, [dispatch]);
   return <></>;
 };
 

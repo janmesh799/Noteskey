@@ -60,7 +60,7 @@ const SignUpForm = () => {
         router.push("/login");
       }
     }, 2000);
-  }, [successMessage, dispatch]);
+  }, [successMessage, dispatch,router]);
 
   return (
     <div className=" w-full md:w-1/2 p-3 md:p-5 flex flex-col justify-between">

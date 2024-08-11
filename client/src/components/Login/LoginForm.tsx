@@ -53,7 +53,7 @@ const LoginForm = () => {
         <div className="text-center mb-6">
           <h3 className="text-2xl font-semibold">Hello Again!</h3>
           <h6 className="text-gray-500 text-sm mt-1">
-            Welcome Back, you've been missed!
+            Welcome Back, you&apos;ve been missed!
           </h6>
         </div>
         <form

@@ -15,7 +15,7 @@ export default function withoutAuth(Component: any) {
       if (auth) {
         return router.replace("/dashboard");
       }
-    }, [auth]);
+    }, [auth,router]);
 
     if (auth) {
       return null;
