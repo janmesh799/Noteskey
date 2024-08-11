@@ -1,22 +1,19 @@
-'use client'
+"use client";
 
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
-import { useRouter } from 'next/navigation'
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { useRouter } from "next/navigation";
+import withAuth from "@/hoc/withAuth";
 
-export default function Dashboard() {
-  const user = useSelector((state: RootState) => state.auth.user)
-  const router = useRouter()
+function Dashboard() {
+  const user = useSelector((state: RootState) => state.auth.user);
 
-  const handleLogout = () => {
-    document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-    router.push('/login')
-  }
-
+  console.log("dashboard reached");
   return (
     <div>
-      <h1>Welcome to the Dashboard, {user}!</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <h1>Welcome to the Dashboard!, {user?.name}</h1>
     </div>
-  )
+  );
 }
+
+export default withAuth(Dashboard);

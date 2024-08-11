@@ -1,32 +1,21 @@
-'use client'
+"use client"
+import LoginForm from "@/components/Login/LoginForm";
+import LoginImage from "@/components/Login/LoginImage";
+import withoutAuth from "@/hoc/withoutAuth";
+import { useAppSelector } from "@/hooks/redux";
+import { RootState } from "@/store";
 
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/store'
-import { login } from '@/store/authSlice'
-import { useRouter } from 'next/navigation'
 
-export default function Login() {
-  const [username, setUsername] = useState('')
-  const dispatch = useDispatch<AppDispatch>()
-  const router = useRouter()
-
-  const handleLogin = () => {
-    // In a real app, you'd validate credentials here
-    dispatch(login(username))
-    document.cookie = `auth_token=${username}; path=/;`
-    router.push('/dashboard')
-  }
-
+function Login() {
+  const colors = useAppSelector((state:RootState)=>state.theme.colors)
   return (
-    <div>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <button onClick={handleLogin}>Login</button>
+    <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-br from-green-400 via-gray-200 to-white p-4">
+      <div className={`flex flex-col md:flex-row w-full max-w-4xl h-auto md:h-[600px] ${colors.background} bg-opacity-75 rounded-2xl shadow-lg overflow-hidden`}>
+        <LoginImage />
+        <LoginForm />
+      </div>
     </div>
-  )
+  );
 }
+
+export default withoutAuth(Login);
