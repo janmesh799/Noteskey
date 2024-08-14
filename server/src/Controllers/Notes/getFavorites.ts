@@ -10,7 +10,6 @@ import Tag, { ITag } from "../../Model/Tag";
 const getFavorites = async (req: Request, res: Response) => {
   let errorCode: null | number = null;
   try {
-    console.log('get favorites')
     const userId: string =
       typeof req.headers.userId === "string" ? req.headers.userId : "";
 

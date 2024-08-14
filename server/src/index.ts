@@ -9,6 +9,7 @@ import swaggerDocument from "../docs/swagger.json";
 import authRouter from "./routes/auth";
 import noteRouter from "./routes/note";
 import tagRouter from "./routes/tag";
+import dashboardRouter from "./routes/dashboard"
 import { connectDB } from "../Database/Database";
 
 dotenv.config();
@@ -38,6 +39,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/auth", authRouter);
 app.use("/api/notes", noteRouter);
 app.use("/api/tags", tagRouter);
+app.use("/api/dashboard", dashboardRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({ success: true, message: "This is server home" });

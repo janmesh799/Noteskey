@@ -22,7 +22,7 @@ async function isAuthenticated(
       throw new Error("Unauthorized");
     }
     authToken = authToken.split(" ")[1];
-
+    console.log("auth token = ", authToken);
     // Verify token and ensure it's the correct type
     const data = JWT.verify(authToken, JwtSecretKey) as JwtPayload;
     if (typeof data !== "object" || !data.id || !data.iat) {
