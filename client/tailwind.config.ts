@@ -8,8 +8,10 @@ const config: Config = {
   ],
   safelist: [
     {
-      pattern: /(bg|text|border|p|m|rounded)-./, // Adjust the pattern to match your dynamic classes
+      pattern: /(bg|text|border|p|m|rounded)-./, // Match dynamic classes
+      variants:['hover']
     },
+    
   ],
   theme: {
     extend: {
@@ -29,4 +31,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

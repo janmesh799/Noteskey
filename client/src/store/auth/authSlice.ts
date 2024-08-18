@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoginCreds, SignUpCreds, UserType } from "./Types";
-import { backendUrl, getAuthToken, setAuthToken } from "./authUtil";
+import {
+  backendUrl,
+  getAuthToken,
+  setAuthToken,
+  authTokenName,
+} from "./authUtil";
 import axios from "axios";
 
 const authUrl = backendUrl + "/api/auth";
@@ -15,13 +20,15 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated:
+    typeof window !== "undefined" && localStorage.getItem(authTokenName) !== null,
   userId: null,
   error: null,
   isLoading: false,
   user: null,
-  successMessage:null
+  successMessage: null,
 };
+
 
 // TypeScript type for the thunk API
 interface ThunkAPI {
@@ -122,6 +129,7 @@ const authSlice = createSlice({
       state.userId = null;
       state.user = null;
       localStorage.removeItem("userId");
+      localStorage.removeItem(authTokenName);
       setAuthToken(""); // Clear token
     },
   },
@@ -136,7 +144,7 @@ const authSlice = createSlice({
         state.userId = action.payload.userId;
         state.user = action.payload.user;
         state.isLoading = false;
-        state.successMessage = 'Login Successfull'
+        state.successMessage = "Login Successfull";
       })
       .addCase(login.rejected, (state, action) => {
         state.isAuthenticated = false;
@@ -153,7 +161,7 @@ const authSlice = createSlice({
       })
       .addCase(signup.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.successMessage ="Signup Successful, Login !"
+        state.successMessage = "Signup Successful, Login !";
       })
       .addCase(signup.rejected, (state, action) => {
         state.isLoading = false;
