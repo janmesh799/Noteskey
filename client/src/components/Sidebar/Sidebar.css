@@ -1,0 +1,90 @@
+/* Sidebar container */
+.sidebar-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border-radius:1.6rem ;
+  }
+  
+  /* Icon bar styling */
+  .icon-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem; /* equivalent to Tailwind's gap-12 */
+    width: 25%; /* equivalent to w-1/4 */
+    height: 100%;
+  }
+  
+  /* Common icon styling */
+  .iconClass {
+    font-size: 2rem; /* equivalent to text-3xl */
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .iconClass:hover {
+    color: white;
+    background-color: black;
+    transform: scale(1.1);
+    /* font-size: 1.25rem; */
+    padding: 0.25rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25); /* equivalent to shadow-xl */
+    border-radius: 0.5rem; /* equivalent to rounded-lg */
+  }
+  
+  /* Active icon styling */
+  .activeIconClass {
+    color: white;
+    background-color: black;
+    font-size: 2rem; /* equivalent to text-3xl */
+    cursor: pointer;
+    transform: scale(1.1);
+    padding: 0.25rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25); /* equivalent to shadow-xl */
+    border-radius: 0.5rem; /* equivalent to rounded-lg */
+    transition: all 0.2s;
+  }
+  
+  /* Tab content container */
+  .tab-content {
+    width: 75%; /* equivalent to w-3/4 */
+    height: 100%;
+    border-radius: 1.5rem; /* equivalent to rounded-3xl */
+  }
+  
+  /* Tab header styling */
+  .tab-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+  }
+  
+  /* Logo styling */
+  .logo {
+    width: 50%; /* equivalent to w-1/2 */
+    height: 10%;
+  }
+  
+  /* Tab title styling */
+  .tab-title {
+    width: 100%;
+    font-weight: 600; /* equivalent to font-semibold */
+    text-align: center;
+  }
+  
+  /* Divider styling */
+  .divider {
+    width: 100%;
+    border-top-width: 1px;
+    margin-top: 0.5rem; /* equivalent to mt-2 */
+  }
+  

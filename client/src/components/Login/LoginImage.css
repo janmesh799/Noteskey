@@ -1,0 +1,72 @@
+/* Container for the login image section */
+.login-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+  /* Media query for larger screens */
+  @media (min-width: 768px) {
+    width: 50%;
+    flex-direction: column;
+  }
+}
+
+/* Logo container styling */
+.logo-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem; /* equivalent to p-6 */
+
+  /* Adjust justify-content for larger screens */
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+  }
+}
+
+/* Logo image styling */
+.logo-image {
+  width: 2.5rem; /* equivalent to w-10 */
+  height: auto;
+}
+
+/* Logo text styling */
+.logo-text {
+  font-size: 1.125rem; /* equivalent to text-lg */
+  font-weight: 600; /* equivalent to font-semibold */
+  color: #38a169; /* equivalent to text-green-600 */
+}
+
+/* Login page image container */
+.login-page-image-container {
+  display: none;
+  padding: 1.5rem; /* equivalent to p-6 */
+  justify-content: center;
+  align-items: center;
+
+  /* Media query to show the image on larger screens */
+  @media (min-width: 768px) {
+    display: flex;
+    width: 75%; /* equivalent to md:w-3/4 */
+  }
+
+  @media (min-width: 1024px) {
+    width: 83.33%; /* equivalent to lg:w-5/6 */
+  }
+
+  @media (min-width: 1280px) {
+    width: 87.5%; /* equivalent to xl:w-7/8 */
+  }
+}
+
+/* Login page image styling */
+.login-page-image {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.5));
+}

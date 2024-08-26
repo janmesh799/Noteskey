@@ -7,10 +7,11 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { RootState } from "@/store";
 import { clearError, login } from "@/store/auth/authSlice";
+import "./LoginForm.css"; // Import the CSS file
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const { error, isLoading,successMessage } = useAppSelector(
+  const { error, isLoading, successMessage } = useAppSelector(
     (state: RootState) => state.auth
   );
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -42,39 +43,27 @@ const LoginForm = () => {
   }, [error]);
 
   return (
-    <div className="w-full md:w-1/2 p-3 md:p-5 flex flex-col justify-between">
+    <div className="login-form-container">
       <div>
-        <p className="text-right mb-6 text-xs text-gray-600">
+        <p className="register-link">
           Not a registered user?{" "}
-          <Link href="/signup" className="text-blue-500">
+          <Link href="/signup" className="link">
             Register Now
           </Link>
         </p>
-        <div className="text-center mb-6">
-          <h3 className="text-2xl font-semibold">Hello Again!</h3>
-          <h6 className="text-gray-500 text-sm mt-1">
-            Welcome Back, you&apos;ve been missed!
-          </h6>
+        <div className="header">
+          <h3>Hello Again!</h3>
+          <h6>Welcome Back, you've been missed!</h6>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center space-y-2"
-        >
+        <form onSubmit={handleSubmit} className="form">
           {localError && (
-            <p className="w-4/6 text-red-500 text-center text-sm">
-              {localError}
-            </p>
+            <p className="error-message">{localError}</p>
           )}
           {successMessage && (
-            <p className="w-4/6 text-green-500 text-center text-sm">
-              {successMessage}
-            </p>
+            <p className="success-message">{successMessage}</p>
           )}
-          <div className="w-4/6">
-            <label
-              htmlFor="login-email"
-              className="block text-sm font-medium text-gray-700"
-            >
+          <div className="input-container">
+            <label htmlFor="login-email" className="label">
               Email address
             </label>
             <input
@@ -83,57 +72,54 @@ const LoginForm = () => {
               placeholder="Enter Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:${colors.border} sm:text-sm`}
+              className="input"
             />
           </div>
-          <div className="w-4/6">
-            <label
-              htmlFor="login-password"
-              className="block text-sm font-medium text-gray-700"
-            >
+          <div className="input-container">
+            <label htmlFor="login-password" className="label">
               Password
             </label>
-            <div className="w-full relative">
+            <div className="password-container">
               <input
                 type={showPassword ? "text" : "password"}
                 id="login-password"
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:${colors.border} sm:text-sm`}
+                className="input"
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <VisibilityIcon className="text-zinc-500" />
+                  <VisibilityIcon className="icon" />
                 ) : (
-                  <VisibilityOffIcon className="text-zinc-500" />
+                  <VisibilityOffIcon className="icon" />
                 )}
               </div>
             </div>
           </div>
-          <div className="w-4/6 !mt-5">
+          <div className="submit-button-container">
             <button
               disabled={isLoading}
               type="submit"
-              className={`px-2 py-1 flex justify-center items-center w-full text-white ${colors.primary} rounded-md hover:${colors.secondary} focus:outline-none focus:ring-2 focus:${colors.border} focus:ring-offset-2 h-[50px]`}
+              className="submit-button"
             >
               {isLoading ? "Loading...." : "Sign In"}
             </button>
           </div>
-          <div className="!m-0 font-medium text-slate-500 w-4/6 text-right">
-            <Link href="/forgot-password" className="w-full text-sm">
+          <div className="recovery-link">
+            <Link href="/forgot-password" className="link">
               Recovery Password
             </Link>
           </div>
         </form>
       </div>
-      <div className="mt-4">
-        <p className="text-center text-gray-500 mb-4">Or continue with</p>
-        <div className="flex justify-center">
-          <GoogleIcon className="cursor-pointer text-red-500" />
+      <div className="alternate-login">
+        <p className="alternate-login-text">Or continue with</p>
+        <div className="google-login">
+          <GoogleIcon className="google-icon" />
         </div>
       </div>
     </div>

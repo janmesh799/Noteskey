@@ -1,21 +1,25 @@
-/* src/app/globals.css */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
 }
-@layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+:root {
+  --light-primary: #38a169; /* bg-green-500 */
+  --light-secondary: #f7fafc; /* bg-gray-100 */
+  --light-accent: #fc8181; /* bg-red-400 */
+  --light-text: #1a202c; /* text-gray-900 */
+  --light-background: #f9fafb; /* bg-gray-50 */
+  --light-border: #9ae6b4; /* border-green-300 */
+}
+:root {
+  --dark-primary: #2f855a; /* bg-green-700 */
+  --dark-secondary: #2d3748; /* bg-gray-800 */
+  --dark-accent: #e53e3e; /* bg-red-600 */
+  --dark-text: #edf2f7; /* text-gray-200 */
+  --dark-background: #1a202c; /* bg-gray-900 */
+  --dark-border: #22543d; /* border-green-800 */
 }

@@ -1,14 +1,15 @@
-// pages/index.tsx
-import Link from "next/link";
+"use client";
+import LandingPage from "@/components/LandingPage/LandingPage";
+import { useAppSelector } from "@/hooks/redux";
+import { RootState } from "@/store";
+import { redirect } from "next/navigation";
 
 function Home() {
-  return (
-    <div className="bg">
-      <h1>Landing Page</h1>
-      <Link href="/login">Login</Link>
-      <Link href="/signup">Signup</Link>
-    </div>
-  );
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  if (isAuthenticated) {
+    redirect('/dashboard')
+  }
+  return <LandingPage />;   
 }
 
 export default Home;

@@ -1,0 +1,30 @@
+/* Layout container */
+.layout-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh; /* equivalent to min-h-screen */
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    width: 16rem; /* equivalent to w-64 */
+  }
+  
+  /* Main content styling */
+  .main-content {
+    flex: 1; /* equivalent to flex-1 */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Children content styling */
+  .content {
+    flex: 1; /* equivalent to flex-1 */
+    padding: 1rem; /* equivalent to p-4 */
+  }
+  
+  /* Footer styling */
+  .footer {
+    padding: 1rem; /* equivalent to p-4 */
+  }
+  

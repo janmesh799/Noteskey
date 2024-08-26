@@ -1,0 +1,65 @@
+/* SignUpImage.css */
+
+.sign-up-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  
+  .logo {
+    width: 2.5rem;
+    height: auto;
+  }
+  
+  .logo-text {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    color: #38a169; /* text-green-600 */
+    margin-left: 0.5rem; /* Adjust spacing as needed */
+  }
+  
+  .signup-image-container {
+    display: none;
+    width: 75%;
+    padding: 1.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .signup-image {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* drop-shadow-4xl */
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Responsive design */
+  @media (min-width: 768px) {
+    .signup-image-container {
+      display: flex;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .signup-image-container {
+      width: 83.3333%; /* lg:w-5/6 */
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .signup-image-container {
+      width: 87.5%; /* xl:w-7/8 */
+    }
+  }
+  

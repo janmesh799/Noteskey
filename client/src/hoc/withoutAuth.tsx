@@ -13,7 +13,7 @@ export default function withoutAuth(Component: any) {
 
     useEffect(() => {
       if (auth) {
-        return router.replace("/dashboard");
+        return router.replace("/");
       }
     }, [auth,router]);
 

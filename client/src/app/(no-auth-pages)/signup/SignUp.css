@@ -1,0 +1,31 @@
+/* SignUp.css */
+
+.signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #68d391, #e2e8f0, #ffffff);
+    padding: 1rem;
+  }
+  
+  .signup-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 4xl;
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    background-color: rgba(255, 255, 255, 0.75); /* Adjust if needed */
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  @media (min-width: 768px) {
+    .signup-box {
+      flex-direction: row;
+    }
+  }
+  

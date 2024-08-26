@@ -7,22 +7,23 @@ interface ThemeState {
 }
 
 const lightTheme: ThemeColors = {
-  primary: "bg-green-500", // For main action items and highlights
-  secondary: "bg-gray-100", // For background sections
-  accent: "bg-red-400", // For notifications or accents
-  text: "text-gray-900", // For primary text
-  background: "bg-gray-50", // For the main background
-  border: "border-green-300", // For card borders or similar elements
+  primary: "#38a169", // bg-green-500
+  secondary: "#f7fafc", // bg-gray-100
+  accent: "#fc8181", // bg-red-400
+  text: "#1a202c", // text-gray-900
+  background: "#f9fafb", // bg-gray-50
+  border: "#9ae6b4", // border-green-300
 };
 
 const darkTheme: ThemeColors = {
-  primary: "bg-green-700", // For main action items and highlights in dark mode
-  secondary: "bg-gray-800", // For darker sections or card backgrounds
-  accent: "bg-red-600", // Accent color for notifications or important tags
-  text: "text-gray-200", // Text color that contrasts with the dark background
-  background: "bg-gray-900", // Main background color for dark theme
-  border: "border-green-800", // Border color for elements like cards
+  primary: "#2f855a", // bg-green-700
+  secondary: "#2d3748", // bg-gray-800
+  accent: "#e53e3e", // bg-red-600
+  text: "#edf2f7", // text-gray-200
+  background: "#1a202c", // bg-gray-900
+  border: "#22543d", // border-green-800
 };
+
 
 
 const initialState: ThemeState = {
