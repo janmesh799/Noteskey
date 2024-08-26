@@ -15,7 +15,7 @@
 }
 
 /* Logo container styling */
-.logo-container {
+.login-logo-container {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -30,13 +30,13 @@
 }
 
 /* Logo image styling */
-.logo-image {
+.login-logo-image {
   width: 2.5rem; /* equivalent to w-10 */
   height: auto;
 }
 
 /* Logo text styling */
-.logo-text {
+.login-logo-text {
   font-size: 1.125rem; /* equivalent to text-lg */
   font-weight: 600; /* equivalent to font-semibold */
   color: #38a169; /* equivalent to text-green-600 */

@@ -1,5 +1,5 @@
-export const backendUrl = "https://plannerpulse.onrender.com";
-// export const backendUrl = "http://localhost:5000";
+// export const backendUrl = "https://plannerpulse.onrender.com";
+export const backendUrl = "http://localhost:5000";
 export const authTokenName = "authToken";
 
 export const getAuthToken = (): string => {

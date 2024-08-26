@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { RootState } from "@/store";
 import { clearError, signup } from "@/store/auth/authSlice";
 import { useRouter } from "next/navigation";
+import "./SignUpForm.css"
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -63,38 +64,38 @@ const SignUpForm = () => {
   }, [successMessage, dispatch,router]);
 
   return (
-    <div className=" w-full md:w-1/2 p-3 md:p-5 flex flex-col justify-between">
+    <div className="signup-form-container">
       <div>
-        <p className="text-right mb-6 text-xs text-gray-600">
+        <p className="login-link">
           Already a registered user?{" "}
           <Link href="/login" className="text-blue-500">
             Login Now
           </Link>
         </p>
-        <div className="text-center mb-6">
-          <h3 className="text-2xl font-semibold">Hello!</h3>
-          <h6 className="text-gray-500 text-sm mt-1">
+        <div className="header">
+          <h3 >Hello!</h3>
+          <h6 >
             Sign Up Today and Never Miss a Note Again!
           </h6>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center space-y-2"
+          className="form"
         >
           {localError && (
-            <p className="w-4/6 text-red-500 text-center text-sm">
+            <p className="error-message">
               {localError}
             </p>
           )}
           {successMessage && (
-            <p className="w-4/6 text-green-500 text-center text-sm">
+            <p className="success-message">
               {successMessage}
             </p>
           )}
-          <div className="w-4/6">
+          <div className="input-container">
             <label
               htmlFor="signup-name"
-              className="block text-sm font-medium text-gray-700"
+              className="label"
             >
               Name
             </label>
@@ -104,13 +105,13 @@ const SignUpForm = () => {
               placeholder="Enter Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:${colors.border} sm:text-sm`}
+              className="input"
             />
           </div>
-          <div className="w-4/6">
+          <div className="input-container">
             <label
               htmlFor="signup-email"
-              className="block text-sm font-medium text-gray-700"
+              className="label"
             >
               Email address
             </label>
@@ -120,80 +121,80 @@ const SignUpForm = () => {
               placeholder="Enter Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:${colors.border} sm:text-sm`}
+              className="input"
             />
           </div>
-          <div className="w-4/6">
+          <div className="input-container">
             <label
               htmlFor="signup-password"
-              className="block text-sm font-medium text-gray-700"
+              className="label"
             >
               Password
             </label>
-            <div className="w-full relative">
+            <div className="password-container">
               <input
                 type={showPassword ? "text" : "password"}
                 id="signup-password"
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:${colors.border} sm:text-sm`}
+                className="input"
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <VisibilityIcon className="text-zinc-500" />
+                  <VisibilityIcon className="icon" />
                 ) : (
-                  <VisibilityOffIcon className="text-zinc-500" />
+                  <VisibilityOffIcon className="icon" />
                 )}
               </div>
             </div>
           </div>
-          <div className="w-4/6">
+          <div className="input-container">
             <label
               htmlFor="signup-confirm-password"
-              className="block text-sm font-medium text-gray-700"
+              className="label"
             >
               Confirm Password
             </label>
-            <div className="w-full relative">
+            <div className="password-container">
               <input
                 type={showCPassword ? "text" : "password"}
                 id="signup-confirm-password"
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:${colors.border} sm:text-sm`}
+                className="input"
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="toggle-password"
                 onClick={() => setShowCPassword(!showCPassword)}
               >
                 {showCPassword ? (
-                  <VisibilityIcon className="text-zinc-500" />
+                  <VisibilityIcon className="icon" />
                 ) : (
-                  <VisibilityOffIcon className="text-zinc-500" />
+                  <VisibilityOffIcon className="icon" />
                 )}
               </div>
             </div>
           </div>
-          <div className="w-4/6 !mt-5">
+          <div className="submit-button-container">
             <button
               disabled={isLoading}
               type="submit"
-              className={`px-2 py-1 flex justify-center items-center w-full text-white ${colors.primary} rounded-md hover:${colors.secondary} focus:outline-none focus:ring-2 focus:${colors.border} focus:ring-offset-2 h-[50px]`}
+              className="submit-button"
             >
               {isLoading ? "Loading...." : "Sign Up"}
             </button>
           </div>
         </form>
       </div>
-      <div className="mt-4">
-        <p className="text-center text-gray-500 mb-4">Or continue with</p>
-        <div className="flex justify-center">
-          <GoogleIcon className="cursor-pointer text-red-500" />
+      <div className="alternate-login">
+        <p className="alternate-login-text">Or continue with</p>
+        <div className="google-login">
+          <GoogleIcon className="google-icon" />
         </div>
       </div>
     </div>

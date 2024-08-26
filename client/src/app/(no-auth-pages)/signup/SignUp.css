@@ -1,31 +1,28 @@
-/* SignUp.css */
-
+/* Container for the signup page */
 .signup-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #68d391, #e2e8f0, #ffffff);
-    padding: 1rem;
-  }
-  
-  .signup-box {
-    display: flex;
-    flex-direction: column;
-    max-width: 4xl;
-    width: 100%;
-    height: auto;
-    max-height: 600px;
-    background-color: rgba(255, 255, 255, 0.75); /* Adjust if needed */
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh; /* equivalent to min-h-screen */
+  background: linear-gradient(to bottom right, #38a169, #e2e8f0, #ffffff); /* bg-gradient-to-br from-green-400 via-gray-200 to-white */
+  padding: 1rem; /* equivalent to p-4 */
+}
+
+/* signup box styling */
+.signup-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 64rem; /* equivalent to max-w-4xl */
+  height: auto;
+  max-height: 600px; /* equivalent to h-[600px] */
+  border-radius: 1rem; /* equivalent to rounded-2xl */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* equivalent to shadow-lg */
+  overflow: hidden;
+
+  /* Media query for larger screens */
   @media (min-width: 768px) {
-    .signup-box {
-      flex-direction: row;
-    }
+    flex-direction: row;
   }
-  
+}

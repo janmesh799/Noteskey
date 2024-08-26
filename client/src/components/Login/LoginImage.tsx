@@ -16,9 +16,9 @@ const LoginImage = () => {
   return (
     <div className="login-image-container">
       {/* Logo */}
-      <div className="logo-container">
-        <Image src={Logo} alt="logo image" className="logo-image" priority />
-        <h5 className="logo-text">Planner Pulse</h5>
+      <div className="login-logo-container">
+        <Image src={Logo} alt="logo image" className="login-logo-image" priority />
+        <h5 className="login-logo-text">Planner Pulse</h5>
       </div>
       {/* Login page image - hidden on mobile */}
       <div className="login-page-image-container">

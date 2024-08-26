@@ -1,36 +1,31 @@
 "use client";
 import React from "react";
-import SignupPageImage from '../../assets/Signup/SignupPageImage.jpeg';
+import signupPageImage from "@/assets/Signup/SignupPageImage.jpeg";
 import Logo from "../../assets/logo.png";
 import Image from "next/image";
 import { ThemeColors } from "@/store/theme/Types";
 import { useAppSelector } from "@/hooks/redux";
 import { RootState } from "@/store";
-import "./SignUpImage.css"; // Import the CSS file
+import "./SignupImage.css"; // Import the CSS file
 
-const SignUpImage = () => {
+const SignupImage = () => {
   const { colors }: { colors: ThemeColors } = useAppSelector(
     (state: RootState) => state.theme
   );
 
   return (
-    <div className="sign-up-image-container">
+    <div className="signup-image-container">
       {/* Logo */}
-      <div className="logo-container">
-        <Image 
-          src={Logo}
-          alt="logo image"
-          className="logo"
-          priority
-        />
-        <h5 className="logo-text">Planner Pulse</h5>
+      <div className="signup-logo-container">
+        <Image src={Logo} alt="logo image" className="signup-logo-image" priority />
+        <h5 className="signup-logo-text">Planner Pulse</h5>
       </div>
-      {/* Signup page image - mobile hidden */}
-      <div className="signup-image-container">
+      {/* signup page image - hidden on mobile */}
+      <div className="signup-page-image-container">
         <Image
-          src={SignupPageImage}
+          src={signupPageImage}
           alt="signup page image"
-          className="signup-image"
+          className="signup-page-image"
           priority
         />
       </div>
@@ -38,4 +33,4 @@ const SignUpImage = () => {
   );
 };
 
-export default SignUpImage;
+export default SignupImage;
